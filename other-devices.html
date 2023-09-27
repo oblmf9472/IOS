@@ -1,0 +1,877 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ECA Component Server SSL, ECA Domain Controller, ECA VPNIPsec, MFOM, and TAXII Requests &laquo;  External Certificate Authority</title>
+<link rel="shortcut icon" href="https://eca5.orc.com/wp-content/themes/eca/favicon-eca.png" type="image/x-icon">
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="https://eca5.orc.com/wp-content/themes/eca/style-ie.css" />
+<![endif]-->
+<link rel="stylesheet" href="https://eca5.orc.com/wp-content/themes/eca/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="https://eca5.orc.com/wp-content/themes/eca/fonts/fontawesome/css/all.min.css?v=1.2" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="https://eca5.orc.com/wp-content/themes/eca/style-2020.css?v=1.2" />
+<style type="text/css">#suckerfishnav{font-size:13px !important;}</style>
+<link rel="pingback" href="https://eca5.orc.com/xmlrpc.php" />
+
+
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//eca5.orc.com' />
+<link rel="alternate" type="application/rss+xml" title="External Certificate Authority &raquo; Feed" href="https://eca.orc.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="External Certificate Authority &raquo; Comments Feed" href="https://eca.orc.com/comments/feed/" />
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v8.15 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-33678748-1"  data-cfasync="false" data-wpfc-render="false" type="text/javascript" async></script>
+			<script data-cfasync="false" data-wpfc-render="false" type="text/javascript">
+				var mi_version = '8.15';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-33678748-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						if (document.cookie.indexOf(disableStrs[index] + '=true') > -1) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if (__gtagTrackerIsOptedOut()) {
+					for (var index = 0; index < disableStrs.length; index++) {
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						document.cookie = disableStrs[index] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				if ('undefined' === typeof gaOptout) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.MonsterInsightsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if (mi_track_user) {
+					function __gtagDataLayer() {
+						dataLayer.push(arguments);
+					}
+
+					function __gtagTracker(type, name, parameters) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply(null, arguments);
+							return;
+						}
+
+						if (type === 'event') {
+							
+														parameters.send_to = monsterinsights_frontend.ua;
+							__gtagDataLayer(type, name, parameters);
+													} else {
+							__gtagDataLayer.apply(null, arguments);
+						}
+					}
+
+					__gtagTracker('js', new Date());
+					__gtagTracker('set', {
+						'developer_id.dZGIzZG': true,
+											});
+															__gtagTracker('config', 'UA-33678748-1', {"forceSSL":"true"} );
+										window.gtag = __gtagTracker;										(function () {
+						/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+						/* ga and __gaTracker compatibility shim. */
+						var noopfn = function () {
+							return null;
+						};
+						var newtracker = function () {
+							return new Tracker();
+						};
+						var Tracker = function () {
+							return null;
+						};
+						var p = Tracker.prototype;
+						p.get = noopfn;
+						p.set = noopfn;
+						p.send = function () {
+							var args = Array.prototype.slice.call(arguments);
+							args.unshift('send');
+							__gaTracker.apply(null, args);
+						};
+						var __gaTracker = function () {
+							var len = arguments.length;
+							if (len === 0) {
+								return;
+							}
+							var f = arguments[len - 1];
+							if (typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function') {
+								if ('send' === arguments[0]) {
+									var hitConverted, hitObject = false, action;
+									if ('event' === arguments[1]) {
+										if ('undefined' !== typeof arguments[3]) {
+											hitObject = {
+												'eventAction': arguments[3],
+												'eventCategory': arguments[2],
+												'eventLabel': arguments[4],
+												'value': arguments[5] ? arguments[5] : 1,
+											}
+										}
+									}
+									if ('pageview' === arguments[1]) {
+										if ('undefined' !== typeof arguments[2]) {
+											hitObject = {
+												'eventAction': 'page_view',
+												'page_path': arguments[2],
+											}
+										}
+									}
+									if (typeof arguments[2] === 'object') {
+										hitObject = arguments[2];
+									}
+									if (typeof arguments[5] === 'object') {
+										Object.assign(hitObject, arguments[5]);
+									}
+									if ('undefined' !== typeof arguments[1].hitType) {
+										hitObject = arguments[1];
+										if ('pageview' === hitObject.hitType) {
+											hitObject.eventAction = 'page_view';
+										}
+									}
+									if (hitObject) {
+										action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+										hitConverted = mapArgs(hitObject);
+										__gtagTracker('event', action, hitConverted);
+									}
+								}
+								return;
+							}
+
+							function mapArgs(args) {
+								var arg, hit = {};
+								var gaMap = {
+									'eventCategory': 'event_category',
+									'eventAction': 'event_action',
+									'eventLabel': 'event_label',
+									'eventValue': 'event_value',
+									'nonInteraction': 'non_interaction',
+									'timingCategory': 'event_category',
+									'timingVar': 'name',
+									'timingValue': 'value',
+									'timingLabel': 'event_label',
+									'page': 'page_path',
+									'location': 'page_location',
+									'title': 'page_title',
+								};
+								for (arg in args) {
+																		if (!(!args.hasOwnProperty(arg) || !gaMap.hasOwnProperty(arg))) {
+										hit[gaMap[arg]] = args[arg];
+									} else {
+										hit[arg] = args[arg];
+									}
+								}
+								return hit;
+							}
+
+							try {
+								f.hitCallback();
+							} catch (ex) {
+							}
+						};
+						__gaTracker.create = newtracker;
+						__gaTracker.getByName = newtracker;
+						__gaTracker.getAll = function () {
+							return [];
+						};
+						__gaTracker.remove = noopfn;
+						__gaTracker.loaded = true;
+						window['__gaTracker'] = __gaTracker;
+					})();
+									} else {
+										console.log("");
+					(function () {
+						function __gtagTracker() {
+							return null;
+						}
+
+						window['__gtagTracker'] = __gtagTracker;
+						window['gtag'] = __gtagTracker;
+					})();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+		<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/eca5.orc.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.1.3"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://eca5.orc.com/wp-includes/css/dist/block-library/style.min.css?ver=6.1.3' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://eca5.orc.com/wp-includes/css/classic-themes.min.css?ver=1' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='contact-form-7-css' href='https://eca5.orc.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.7.2' type='text/css' media='all' />
+<link rel='stylesheet' id='multilevelnav_style-css' href='https://eca.orc.com/?mlnmenu=css&#038;ver=6.1.3' type='text/css' media='all' />
+<script type='text/javascript' src='https://eca5.orc.com/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.min.js?ver=8.15' id='monsterinsights-frontend-script-js'></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript" id='monsterinsights-frontend-script-js-extra'>/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,cer,docx,pptx,xlsx","inbound_paths":"[]","home_url":"https:\/\/eca.orc.com","hash_tracking":"false","ua":"UA-33678748-1","v4_id":""};/* ]]> */
+</script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-content/plugins/multi-level-navigation-plugin/scripts/superfish.js?ver=1.4.8' id='superfish-js'></script>
+<link rel="https://api.w.org/" href="https://eca.orc.com/wp-json/" /><link rel="alternate" type="application/json" href="https://eca.orc.com/wp-json/wp/v2/pages/6824" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://eca5.orc.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://eca5.orc.com/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 6.1.3" />
+<link rel="canonical" href="https://eca.orc.com/other-devices/" />
+<link rel='shortlink' href='https://eca.orc.com/?p=6824' />
+<link rel="alternate" type="application/json+oembed" href="https://eca.orc.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Feca.orc.com%2Fother-devices%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://eca.orc.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Feca.orc.com%2Fother-devices%2F&#038;format=xml" />
+
+<!-- Multi-level Navigation Plugin v2.3.6 by Ryan Hellyer ... https://geek.hellyer.kiwi/multi-level-navigation/ -->
+<!--[if lte IE 7]><script type="text/javascript" src="https://eca5.orc.com/wp-content/plugins/multi-level-navigation-plugin/scripts/suckerfish_ie.js"></script><![endif]--><script>jQuery(document).ready(function() {
+	jQuery("ul.sf-menu").superfish({
+		animation:     {opacity:"show",height:"show"},  // fade-in and slide-down animation
+		delay:        0,                            // delay on mouseout
+		speed:        "fast",  // animation speed
+		autoArrows:   "",  // enable generation of arrow mark-up
+		dropShadows:  ""  // enable drop shadows
+	});
+});
+/**
+* hoverIntent is similar to jQuery's built-in "hover" function except that
+* instead of firing the onMouseOver event immediately, hoverIntent checks
+* to see if the user's mouse has slowed down (beneath the sensitivity
+* threshold) before firing the onMouseOver event.
+*
+* hoverIntent r5 // 2007.03.27 // jQuery 1.1.2+
+* <http://cherne.net/brian/resources/jquery.hoverIntent.html>
+*
+* hoverIntent is currently available for use in all personal or commercial
+* projects under both MIT and GPL licenses. This means that you can choose
+* the license that best suits your project, and use it accordingly.
+*
+* // basic usage (just like .hover) receives onMouseOver and onMouseOut functions
+* $("ul li").hoverIntent( showNav , hideNav );
+*
+* // advanced usage receives configuration object only
+* $("ul li").hoverIntent({
+*	sensitivity: 7, // number = sensitivity threshold (must be 1 or higher)
+*	interval: 100,   // number = milliseconds of polling interval
+*	over: showNav,  // function = onMouseOver callback (required)
+*	timeout: 0,   // number = milliseconds delay before onMouseOut function call
+*	out: hideNav    // function = onMouseOut callback (required)
+* });
+*
+* @param  f  onMouseOver function || An object with configuration options
+* @param  g  onMouseOut function  || Nothing (use configuration options object)
+* @author    Brian Cherne <brian@cherne.net>
+*/
+(function($) {
+	$.fn.hoverIntent = function(f,g) {
+		// default configuration options
+		var cfg = {
+			sensitivity: 10,
+			interval: 200,
+			timeout: 0
+		};
+		// override configuration options with user supplied object
+		cfg = $.extend(cfg, g ? { over: f, out: g } : f );
+
+		// instantiate variables
+		// cX, cY = current X and Y position of mouse, updated by mousemove event
+		// pX, pY = previous X and Y position of mouse, set by mouseover and polling interval
+		var cX, cY, pX, pY;
+
+		// A private function for getting mouse position
+		var track = function(ev) {
+			cX = ev.pageX;
+			cY = ev.pageY;
+		};
+
+		// A private function for comparing current and previous mouse position
+		var compare = function(ev,ob) {
+			ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+			// compare mouse positions to see if they've crossed the threshold
+			if ( ( Math.abs(pX-cX) + Math.abs(pY-cY) ) < cfg.sensitivity ) {
+				$(ob).unbind("mousemove",track);
+				// set hoverIntent state to true (so mouseOut can be called)
+				ob.hoverIntent_s = 1;
+				return cfg.over.apply(ob,[ev]);
+			} else {
+				// set previous coordinates for next time
+				pX = cX; pY = cY;
+				// use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
+				ob.hoverIntent_t = setTimeout( function(){compare(ev, ob);} , cfg.interval );
+			}
+		};
+
+		// A private function for delaying the mouseOut function
+		var delay = function(ev,ob) {
+			ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+			ob.hoverIntent_s = 0;
+			return cfg.out.apply(ob,[ev]);
+		};
+
+		// A private function for handling mouse 'hovering'
+		var handleHover = function(e) {
+			// next three lines copied from jQuery.hover, ignore children onMouseOver/onMouseOut
+			var p = (e.type == "mouseover" ? e.fromElement : e.toElement) || e.relatedTarget;
+			while ( p && p != this ) { try { p = p.parentNode; } catch(e) { p = this; } }
+			if ( p == this ) { return false; }
+
+			// copy objects to be passed into t (required for event object to be passed in IE)
+			var ev = jQuery.extend({},e);
+			var ob = this;
+
+			// cancel hoverIntent timer if it exists
+			if (ob.hoverIntent_t) { ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t); }
+
+			// else e.type == "onmouseover"
+			if (e.type == "mouseover") {
+				// set "previous" X and Y position based on initial entry point
+				pX = ev.pageX; pY = ev.pageY;
+				// update "current" X and Y position based on mousemove
+				$(ob).bind("mousemove",track);
+				// start polling interval (self-calling timeout) to compare mouse coordinates over time
+				if (ob.hoverIntent_s != 1) { ob.hoverIntent_t = setTimeout( function(){compare(ev,ob);} , cfg.interval );}
+
+			// else e.type == "onmouseout"
+			} else {
+				// unbind expensive mousemove event
+				$(ob).unbind("mousemove",track);
+				// if hoverIntent state is true, then call the mouseOut function after the specified delay
+				if (ob.hoverIntent_s == 1) { ob.hoverIntent_t = setTimeout( function(){delay(ev,ob);} , cfg.timeout );}
+			}
+		};
+
+		// bind the function to the two event listeners
+		return this.mouseover(handleHover).mouseout(handleHover);
+	};
+})(jQuery);
+</script></head>
+<body class="page-template-default page page-id-6824 not-home">
+<header>
+    <div class="container flex">
+        <a href="https://eca5.orc.com" class="orc-widepoint-logo"><img src="/wp-content/themes/eca/images/eca-logo-main.png" alt="ECA-External Certificate Authority" /></a>
+        <img class="eca-logo" src="/wp-content/themes/eca/images/eca-logo-second.png" alt="ECA-External Certificate Authority" />
+    </div>
+    <div id="menu">
+        <div class="container">
+              <label for="toggle-mobile-menu" aria-label="Menu">&#9776;</label>
+              <input id="toggle-mobile-menu" type="checkbox" />
+                        <ul id="menu-main-menu" class=""><li id="menu-item-6885" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-6885"><a href="https://eca.orc.com/">Home</a></li>
+<li id="menu-item-6888" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6888"><a href="/instructions">Instructions</a></li>
+<li id="menu-item-6887" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6887"><a href="https://eca.orc.com/policies/">Policies</a></li>
+<li id="menu-item-6884" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6884"><a href="https://eca.orc.com/trust-cas/">Trust CAs</a></li>
+<li id="menu-item-6889" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6889"><a target="_blank" rel="noopener" href="https://orc.widepoint.com/resellers/">Authorized Resellers</a></li>
+<li id="menu-item-6886" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6886"><a href="https://eca.orc.com/contact/">Contact Us</a></li>
+<li id="menu-item-6890" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6890"><a target="_blank" rel="noopener" href="https://orc.widepoint.com/">ORC.WidePoint.com</a></li>
+</ul>        </div>
+        
+    </div>
+</header>
+
+<div class="title-bar">
+    <div class="container"><h2>ECA Component Server SSL, ECA Domain Controller, ECA VPNIPsec, MFOM, and TAXII Requests</h2></div>
+</div>
+
+
+
+<div id="insidecontent">
+    <div class="medium-wrap">
+    
+  
+				                
+                
+    </div>
+</div>
+
+
+
+    <div id="" class="block block-image 
+      
+     
+    dark 
+    block-1 block-first 
+    align-center "
+
+    style="background-image: url(https://eca5.orc.com/wp-content/uploads/2022/05/bg-black-poly.jpeg);background-position:50% 0;background-repeat:no-repeat;background-size:cover;
+        -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);">
+    
+        <div class="overlay-none"></div>        
+        <div class="container">
+
+            <h3 class="block-title"><span class="divide">Step 1</span> <span class="divide">|</span> Select A Certificate Type</h3>            
+            <div class="row"  ">
+
+                 
+
+                    <div class="column col3"><p><a class="button" href="#type-component"><strong>Component/Server/SSL Certificate</strong></a></p>
+</div>
+                    <div class="column col3"><p><a class="button" href="#type-domain"><strong>Domain Controller Certificate</strong></a></p>
+</div>
+                    <div class="column col3 col-last"><p><a class="button" href="#type-vpn-isec"><strong>VPN/IPSec Certificate</strong></a></p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="type-component" class="block block-white 
+      
+     
+     
+    block-2 
+    flex-fix "
+
+    style="">
+    
+                
+        <div class="container">
+
+                        
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fal fa-file-certificate fa-9x blue"></i> 
+</div>
+                    <div class="column col4x3 col-last"><h3 class="block-title" style="margin-bottom: 20px;">Component/Server/SSL Certificate Features</h3>
+<ul>
+<li>Allows a server to identify itself to other computers via SSL and TLS communication</li>
+<li>Software only — no hardware needed (also can be used with a hardware security module)</li>
+<li>Includes a public key for encrypting communications</li>
+<li>Useful for any web server that requires secure connections</li>
+</ul>
+<p><a class="button" href="#instructions">Jump to Instructions</a></p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="type-domain" class="block block-gray 
+      
+     
+     
+    block-3 
+    flex-fix "
+
+    style="">
+    
+                
+        <div class="container">
+
+                        
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fas fa-file-certificate fa-9x blue"></i> 
+</div>
+                    <div class="column col4x3 col-last"><h3 class="block-title" style="margin-bottom: 20px;">Domain Controller Certificate Features</h3>
+<p>A certificate that a domain controller uses to identify itself to other computers to enable smart card logon functionality to the network. It also includes the public key which is required in order for web browsers to set up a secure encrypted connection with the server.</p>
+<p>Any domain controller that can be used as a logon server to assign domain privileges must have a domain controller certificate in order to facilitate smartcard logon across the network. For example, if you have 3 domain controllers handling user logons, all 3 must have a unique domain controller certificate that corresponds to that machine name.</p>
+<p><a class="button" href="#instructions">Jump to Instructions</a></p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="type-vpn-isec" class="block block-white 
+      
+     
+     
+    block-4 
+    flex-fix "
+
+    style="">
+    
+                
+        <div class="container">
+
+                        
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fad fa-file-certificate fa-9x blue"></i> 
+</div>
+                    <div class="column col4x3 col-last"><h3 class="block-title" style="margin-bottom: 20px;">VPN/IPSec Certificate Features</h3>
+<p>A certificate that is used to do authentication with client/user certificates within a Virtual Private Network.</p>
+<p><a class="button" href="#instructions">Jump to Instructions</a></p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="instructions" class="block block-gray 
+      
+     
+     
+    block-5 
+    flex-fix "
+
+    style="">
+    
+                
+        <div class="container">
+
+                        
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fal fa-file-text fa-6x blue"></i> 
+<h3 class="block-title align-center"><span class="divide">Step 2</span><br />
+Read The Instructions</h3>
+</div>
+                    <div class="column col4x3 col-last"><p><strong>IMPORTANT:</strong> You must perform the online application for yourself, in your own name. You may NOT make an Online Application for another individual. This is grounds for immediate revocation of the certificate, and any fees paid will not be returned.</p>
+<ul>
+<li>A workstation with a FIPS 140-1/2 Level 1 cryptographic compliant web browser is required. You may use Edge, Chrome, or Firefox to make the certificate request.</li>
+<li>You will combine the certificate after we issue it with the private key according to your server manual instructions.</li>
+<li>If you are renewing a device certificate, you must generate a new private key. You cannot use a previous private key with a new public key.</li>
+</ul>
+<p>The DoD ECA Certificate Policy requires all Subscribers to protect their certificate private keys from unauthorized use. Device (or Server) certificates do not have a password assigned to the private key, so you will need to protect the certificate private key via other methods. You should keep a back-up of the private key (or the certificate with the private key); the back-up file will require you to assign a password. WidePoint-ORC will not know this password; it is not sent out from your computer.  If you forget your certificate password, you will be required to purchase a new certificate.</p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="" class="block block-image 
+      
+     
+    dark 
+    block-6 
+    flex-fix "
+
+    style="background-image: url(https://eca5.orc.com/wp-content/uploads/2022/05/bg-navy-poly.jpeg);background-position:50% 0;background-repeat:no-repeat;background-size:cover;
+        -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);">
+    
+        <div class="overlay-none"></div>        
+        <div class="container">
+
+            <h3 class="block-title"><span class="divide">Step 3</span> <span class="divide">|</span> Generating a Certificate Signing Request (CSR)</h3>            
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fal fa-laptop-code fa-9x"></i> 
+</div>
+                    <div class="column col4x3 col-last"><p>The specifics of making a CSR and key generation are different for each situation. Your server may have a specific procedure or you may use a common tool (e.g., OpenSSL). The process that you follow for making a CSR may require you to enter data that is not indicated in the information above. (For example, you might be required to enter information for “State” or “Locale”.) If so, enter values that are correct. But be advised that we will issue the certificate as indicated above and without those values. This is dictated by the DoD ECA Certificate Policy Certificate Profiles.</p>
+<p><strong>When creating the CSR, you will need the following information:</strong></p>
+<ul class="fa-ul">
+<li><i class="fa-li fa fa-check red"></i> <strong>Key Length or Key Size: </strong>2048 bit RSA (Note: exactly 2048 bits; no more, no less)</li>
+<li><i class="fa-li fa fa-check red"></i> <strong>Hash Algorithm: </strong>SHA2 or SHA256</li>
+<li><i class="fa-li fa fa-check red"></i> <strong>Subject values: </strong>C=US, O=U.S. Government, OU=ECA, OU=ORC,<br />
+OU=Company/Organization Name, CN=domain name/hostname/IP address</li>
+<li><i class="fa-li fa fa-check red"></i> <strong>Exportable: </strong>yes or true (you want the private key to be exportable, except if it is prohibited by your organization’s policy or for your organization’s needs)</li>
+<li><i class="fa-li fa fa-check red"></i> <strong>Request type or output: </strong>PKCS10</li>
+</ul>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="" class="block block-image 
+      
+     
+    dark 
+    block-7 
+    lightbg "
+
+    style="background-image: url(https://eca5.orc.com/wp-content/uploads/2022/05/bg-poly-gray.png);background-position:50% 0;background-repeat:no-repeat;background-size:cover;
+        -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);">
+    
+        <div class="overlay-none"></div>        
+        <div class="container">
+
+            <h3 class="block-title"><span class="divide">Step 4</span> <span class="divide">|</span> Gather the Required Documents</h3>            
+            <div class="row"  ">
+
+                 
+
+                    <div class="column col2"><h4 style="margin-top: 0;">Users MUST attach photocopies of the following items to the request forms:</h4>
+<ul class="fa-ul">
+<li><i class="fa-li fa fa-check red"></i> <strong>Two photo IDs</strong>, one of which must be a current and valid, Government-Issued Photo ID</li>
+<li><i class="fa-li fa fa-check red"></i> Proof of Citizenship</li>
+<li><i class="fa-li fa fa-check red"></i>Signed Component Certificate Authorization Letter</li>
+</ul>
+<p><strong>HOWEVER,</strong> if you’re an MFOM Subscriber you will provide a copy of a non expired, organizational photo ID with your first and last name, photo, and your DOD Agency/Branch on it or a signed proof of affiliation letter INSTEAD of the signed Component Certificate Authorization Letter.</p>
+</div>
+                    <div class="column col2 col-last"><p><strong><i class="fa fa-file-text red"></i> Helpful Downloads:</strong></p>
+<p><a class="button" href="/wp-content/uploads/ECA_Docs/Gather-Required-Documents_Client-MFOM-Certificates.pdf"><i class="fa fa-file-pdf"></i> Required Documents Instructions (PDF)</a></p>
+<p><a class="button" href="/wp-content/uploads/ECA_Docs/ECA_IndivProofofOrganizationalAffiliation.doc"><i class="fa fa-file-word"></i> Proof of Organizational Affiliation Letter (Word Doc)</a></p>
+<p><a class="button" href="/wp-content/uploads/ECA_Docs/ECA_Component_Cert_Authorization.doc"><i class="fa fa-file-signature"></i> Component Certificate Authorization Letter (Word Doc)</a></p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="" class="block block-white 
+      
+     
+     
+    block-8 
+    flex-fix "
+
+    style="">
+    
+                
+        <div class="container">
+
+            <h3 class="block-title"><span class="divide">Step 5</span> <span class="divide">|</span> Trust the Certificate Authorities</h3>            
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><p><a href="https://eca-webdev-2020.orc.com/wp-content/uploads/2022/05/responsive.png"><img decoding="async" loading="lazy" class="aligncenter size-medium wp-image-6793" src="https://eca-webdev-2020.orc.com/wp-content/uploads/2022/05/responsive-300x300.png" alt="" width="300" height="300" srcset="https://eca5.orc.com/wp-content/uploads/2022/05/responsive-300x300.png 300w, https://eca5.orc.com/wp-content/uploads/2022/05/responsive-150x150.png 150w, https://eca5.orc.com/wp-content/uploads/2022/05/responsive.png 512w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+</div>
+                    <div class="column col4x3 col-last"><p>The Trust procedure below may have been performed when you obtained your Identity Certificate. The trust procedure must be performed on every computer where ECA certificates will be used.</p>
+<h3>Two Ways to Trust CA&#8217;s:</h3>
+<ul class="fa-ul">
+<li><i class="fa-li fa fa-file-signature red"></i> <strong>Quick Method:</strong> Trust your device quickly and easily using InstallRoot. <a href="/wp-content/uploads/ECA_Docs/Trusting_DoD_PKIs.pdf">Click here</a> for instructions on download and running the tool.</li>
+<li><i class="fa-li fa fa-download red"></i> <strong>Manual Method:</strong> If you prefer the manual method, you can <a href="/eca-repository/">visit the ECA Repository</a> page and download all of the ECA Root Certificates and the WidePoint-ORC ECA Signing Certificates.</li>
+</ul>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="" class="block block-white 
+      
+     
+     
+    block-9 
+    flex-fix no-padding-top "
+
+    style="">
+    
+                
+        <div class="container">
+
+                        
+            <div class="row"  ">
+
+                   
+
+                    <div class="column col4"><i class="fal fa-info-circle fa-6x blue"></i> 
+<h3 class="block-title align-center">A Few More Notes</h3>
+</div>
+                    <div class="column col4x3 col-last"><p>A few screens from now, you will be required to select a DOD/NSA Affiliation from a list. If you are getting an MFOM or TAXII Certificate, then you will select the radio button for that certificate and continue on with the process.</p>
+<p>For subscribers of all other device certificates, you will select either <strong>‘My Federal Program is not Listed’</strong> or <strong>‘No ECA Agency Affiliation is Required.’</strong> Even if you are setting up server-to-server communications with a DOD or NSA Server, you will still select one of the two in the first sentence (it does not matter which one). The reason is that the ECA Affiliation Page is designed to make sure that Client Certificate Subscribers select the appropriate level of ECA Client Certificate to be able to access the web site(s).</p>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="" class="block block-image 
+      
+     
+    dark 
+    block-10 
+    white-boxes lightbg align-center "
+
+    style="background-image: url(https://eca5.orc.com/wp-content/uploads/2022/05/bg-poly-gray.png);background-position:50% 0;background-repeat:no-repeat;background-size:cover;
+        -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);">
+    
+        <div class="overlay-none"></div>        
+        <div class="container">
+
+            <h3 class="block-title"><span class="divide">Step 6</span> <span class="divide">|</span> Proceed to Our Secure Portal</h3>            
+            <div class="row"  ">
+
+                 
+
+                    <div class="column col2"><div class="extra-padding">
+<h3>New Users</h3>
+<p>If you have NOT created an account with us, click below to proceed.</p>
+<p><a class="button" href="https://certificateenroll.orc.com/enroll/programs.html">Create An Account</a></p>
+</div>
+</div>
+                    <div class="column col2 col-last"><div class="extra-padding">
+<h3>Returning Users</h3>
+<p>If you do have an account with us already, click below to access your account.</p>
+<p><a class="button" href="https://certificateenroll.orc.com/enroll/sub/login.html">Access Your Account</a></p>
+</div>
+</div>
+
+                                
+                <div class="clear"></div>
+
+            </div>
+            
+        </div>
+    </div>
+
+                                                      
+<div class="clear"></div>
+
+<div id="sidebar"><h2 class="widgettitle">Reminders &#038; Tips</h2>			<div class="textwidget"><ul>
+<!--<li><a href="#">Frequently Asked Questions</a></li>-->
+<li><a href="/windows">Should I use Internet Explorer or Firefox on Windows?</a></li>
+
+<li><a href="/?page_id=1714">Website Security Cert Error Message</a></li>
+</ul>
+</div>
+					<div class="textwidget"><div class="contactus"><p>To contact the ORC ECA Customer Service Team, please send an email<br />to ecahelp@orc.com OR<br /><a href="http://helpspot.orc.com/ORCPortals/ECA/index.php" target="_blank" rel="noopener">Submit an On-line Help Request Form</a></p></div></div>
+		</div>
+  <div style="clear:both;"></div>
+  
+  <div id="footer">
+    <div class="container">
+        <div class="column col5 footer-first">
+            <a href="https://orc.widepoint.com"><img src="/wp-content/themes/eca/images/ORC-logo-ol.png" alt="Operational Research Consultants" /></a>
+            <hr />
+            <a href="https://eca.orc.com"><img src="/wp-content/themes/eca/images/eca.png" alt="External Certificate Authority" /></a>
+            <hr />
+            <i class="fa fa-arrow-alt-circle-right red"></i>&nbsp;&nbsp;<a style="font-size: 0.9em;" href="https://orc.widepoint.com"><strong>Visit ORC.WidePoint.com</strong></a>
+            <div class="spacer"></div>
+            <i class="fa fa-arrow-alt-circle-right red"></i>&nbsp;&nbsp;<a style="font-size: 0.9em;" href="https://widepoint.com"><strong>Visit WidePoint.com</strong></a>
+        </div>
+        <div class="column col5">
+            <p class="small-header">Certificates</p>
+            <ul class="fa-ul">
+                
+                <li><i class="fa fa-li fa-angle-right"></i> <a href="/instructions/">Instructions</a></li>
+            </ul>
+            <div class="spacer"></div>
+            <p class="small-header">Quick Links</p>
+            <ul class="fa-ul">
+                
+                <li><i class="fa fa-li fa-angle-right"></i> <a href="/eca-repository/">ECA Repository</a></li>
+                <li><i class="fa fa-li fa-angle-right"></i> <a href="/certificate-tools/">Certificate Tools</a></li>
+            </ul>
+        </div>
+        <div class="column col5">
+         <!--delete this -->
+            <div class="spacer"></div>
+            
+
+        </div>
+        <div class="column col5">
+            <!--delete this -->
+        </div>
+        <div class="column col5 col-last">
+            <p class="small-header">Contact Us</p>
+            <ul class="fa-ul">
+            <li><i class="fa fa-li fa-phone red"></i> 1-800-816-5548</li>
+            <li><i class="fa fa-li fa-envelope red"></i> <a href="mailto:wcsc.helpdesk@widepoint.com">wcsc.helpdesk@widepoint.com</a></li>
+            </ul>
+            <hr />
+            <a href="/appointments/" class="button">Schedule Appointment</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="copyright">
+    <div class="container">
+        &copy; 2023 ORC ECA.  All Rights Reserved.
+    </div>
+</div>
+
+		<script type='text/javascript' src='https://eca5.orc.com/wp-includes/js/comment-reply.min.js?ver=6.1.3' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.7.2' id='swv-js'></script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/eca.orc.com\/wp-json\/","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.7.2' id='contact-form-7-js'></script>
+<script type='text/javascript' src='https://eca5.orc.com/wp-content/plugins/page-links-to/dist/new-tab.js?ver=3.3.6' id='page-links-to-js'></script>
+</body>
+</html>
