@@ -80,7 +80,6 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
-/*
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
