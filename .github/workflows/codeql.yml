@@ -9,7 +9,6 @@ while true; do
  if [[ "$STATUS" != "in progress" ]]; then 
    break
  fi
-
 Common Core - Core Entities and Services User Guide
 Oracle Banking Treasury Management Release 14.7.0.0.0
 Part No. F72699-01 November 2022
